@@ -4,7 +4,8 @@ from selene.support.shared import browser
 
 from tests.controls.datepicker import DatePicker
 from tests.controls.dropdown import Dropdown
-from tests.controls.resourse import resourse
+from tests.controls.resourse import resource
+
 from tests.controls.table import Table
 from tests.controls.tags_input import TagsInput
 
@@ -33,7 +34,7 @@ def test_submit_form():
     hobbies_sports = '[for="hobbies-checkbox-1"]'
     browser.element(hobbies_sports).click()
 
-    browser.element('#uploadPicture').send_keys(resourse('w9.jpg'))
+    browser.element('#uploadPicture').send_keys(resource('w9.jpg'))
 
     browser.element('#currentAddress').type('DC')
 

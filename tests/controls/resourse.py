@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 
 
-def resourse(path):
+def resource(path):
     file_path = str(Path(demoqa.__file__)
                     .parent
                     .parent
