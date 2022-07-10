@@ -1,8 +1,8 @@
 
 from selene import have
 from selene.support.shared import browser
+from selenium.webdriver import ActionChains, Keys
 
-from tests.controls.datepicker import DatePicker
 from tests.controls.dropdown import Dropdown
 from tests.controls.resourse import resource
 
@@ -24,12 +24,17 @@ def test_submit_form():
 
     browser.element('#userNumber').type('89124356789')
 
-    date_of_birth = DatePicker(browser.element('#dateOfBirthInput'))
-    date_of_birth.input(option='30 Jul 1989')
+    browser.element('#dateOfBirthInput').click()
+    actions = ActionChains(browser.driver)
+    actions.key_down(Keys.COMMAND).send_keys('a').key_up(Keys.COMMAND).perform()
+    browser.element('#dateOfBirthInput').type('10 Sep 1988')
+    browser.element('#dateOfBirthInput').press_enter()
+    # date_of_birth = DatePicker(browser.element('#dateOfBirthInput'))
+    # date_of_birth.input('30 Jul 1989')
 
     subjects = TagsInput(browser.element('#subjectsInput'))
-    subjects.add('Eng', autocomplete='English')
-    subjects.add('Maths')
+    subjects.add('Che', autocomplete='Chemistry')
+    subjects.add('Math')
 
     hobbies_sports = '[for="hobbies-checkbox-1"]'
     browser.element(hobbies_sports).click()
@@ -39,10 +44,10 @@ def test_submit_form():
     browser.element('#currentAddress').type('DC')
 
     states = Dropdown(browser.element('#state'))
-    states.select(option='Haryana')
+    states.select(option='NCR')
 
     city = Dropdown(browser.element('#city'))
-    city.select(option='Karnal')
+    city.select(option='Delhi')
 
     browser.element('#submit').click()
 
@@ -51,9 +56,12 @@ def test_submit_form():
     result.cells_of_row(1).should(have.exact_texts('Student Email', 'danvu@ya.ru'))
     result.cells_of_row(2).should(have.exact_texts('Gender', 'Male'))
     result.cells_of_row(3).should(have.exact_texts('Mobile', '8912435678'))
-    result.cells_of_row(4).should(have.exact_texts('Date of Birth', '30 Jul 1989'))
-    result.cells_of_row(5).should(have.exact_texts('Subjects', 'English, Maths'))
+    result.cells_of_row(4).should(have.exact_texts('Date of Birth', '10 September,1988'))
+    result.cells_of_row(5).should(have.exact_texts('Subjects', 'Chemistry, Maths'))
     result.cells_of_row(6).should(have.exact_texts('Hobbies', 'Sports'))
     result.cells_of_row(7).should(have.exact_texts('Picture', 'w9.jpg'))
     result.cells_of_row(8).should(have.exact_texts('Address', 'DC'))
-    result.cells_of_row(9).should(have.exact_texts('State and City', 'Haryana Karnal'))
+    result.cells_of_row(9).should(have.exact_texts('State and City', 'NCR Delhi'))
+
+
+
