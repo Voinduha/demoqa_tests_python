@@ -12,5 +12,6 @@ def browser_management():
     browser.config.hold_browser_open = (
         os.getenv('selene.hold_browser_open', 'false').lower() == "true"
     )
+
     browser.config.window_width = 400
     browser.config._window_height = 900
